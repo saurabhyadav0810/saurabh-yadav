@@ -7,13 +7,11 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 
-// Simple in-memory cache (5 min TTL)
+
 let cache = { data: null, timestamp: 0 };
 const CACHE_TTL = 5 * 60 * 1000;
 
-// --- Platform Fetchers ---
 
-// LeetCode - GraphQL API (live)
 async function fetchLeetCode() {
     try {
         const res = await axios.post('https://leetcode.com/graphql', {
@@ -50,7 +48,7 @@ async function fetchLeetCode() {
     }
 }
 
-// HackerRank - REST API (live)
+
 async function fetchHackerRank() {
     try {
         const res = await axios.get('https://www.hackerrank.com/rest/hackers/yadavsaurabhraj1/badges', {
@@ -72,7 +70,6 @@ async function fetchHackerRank() {
     }
 }
 
-// GeeksforGeeks - scrape total_problems_solved from profile page HTML
 async function fetchGFG() {
     try {
         const res = await axios.get('https://www.geeksforgeeks.org/user/saurabhyadav0810/', {
@@ -82,7 +79,7 @@ async function fetchGFG() {
             timeout: 10000
         });
 
-        const match = res.data.match(/total_problems_solved\\?"?\s*:\s*(\d+)/);
+        const match = res.data.match(/total_problems_solved["']?\s*:\s*(\d+)/);
         if (match) {
             return parseInt(match[1], 10);
         }
@@ -93,7 +90,7 @@ async function fetchGFG() {
     }
 }
 
-// --- API Endpoint ---
+
 
 app.get('/dsa-stats', async (req, res) => {
     if (cache.data && (Date.now() - cache.timestamp) < CACHE_TTL) {
@@ -127,5 +124,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });

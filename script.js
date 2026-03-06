@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Coding questions — fetch from backend API
         try {
-            const dsaRes = await fetch('http://localhost:3000/dsa-stats');
+            const dsaRes = await fetch('https://saurabh-yadav-portfolio-backend.onrender.com/dsa-stats');
             const dsaData = await dsaRes.json();
             const dsaEl = document.getElementById('stat-dsa');
             if (dsaEl && dsaData.totalSolved) {
