@@ -1,4 +1,10 @@
 
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.title = "Saurabh Yadav";
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     
     const nav = document.querySelector('nav');
